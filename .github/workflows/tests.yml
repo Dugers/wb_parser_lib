@@ -1,0 +1,57 @@
+name: Tests
+
+on:
+    push:
+        branches: ["master", "dev"]
+    pull_request:
+        branches: ["master", "dev"]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clone the repository
+              uses: actions/checkout@v4
+
+            - name: Install Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.13"
+            
+            - name: Install poetry
+              uses: pip install poetry
+            
+            - name: Cache dependencies
+              uses: actions/cache@v3
+              with:
+                path: ~/.cache/pypoetry
+                key: ${{ runner.os }}-poetry-${{ hashFiles('pyproject.toml') }}
+            
+            - name: Install dependencies
+              uses: poetry install --all-extras --all-groups
+
+            - name: Run Tests
+              uses: poetry run pytest
+
+    build:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clone the repository
+              uses: actions/checkout@v4
+
+            - name: Install Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.13"
+            
+            - name: Install poetry
+              uses: pip install poetry
+            
+            - name: Build the project
+              uses: poetry build
+            
+            - name: Verify built files
+              uses: |
+                ls dist/
+                echo "Build successful!"

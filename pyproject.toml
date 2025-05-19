@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "wb-parser"
+version = "0.1.0"
+description = "Simple parser for wildberries. Provides to get product info and find other products"
+authors = ["Anton Kolesnikov <tg@anton_code>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+pydantic = "^2.11.4"
+aiohttp = { version = "^3.11.18", optional = true }
+
+[tool.poetry.extras]
+aiohttp = ["aiohttp"]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
