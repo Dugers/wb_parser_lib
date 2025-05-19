@@ -19,7 +19,7 @@ jobs:
                 python-version: "3.13"
             
             - name: Install poetry
-              uses: pip install poetry
+              run: pip install poetry
             
             - name: Cache dependencies
               uses: actions/cache@v3
@@ -28,10 +28,10 @@ jobs:
                 key: ${{ runner.os }}-poetry-${{ hashFiles('pyproject.toml') }}
             
             - name: Install dependencies
-              uses: poetry install --all-extras --all-groups
+              run: poetry install --all-extras --all-groups
 
             - name: Run Tests
-              uses: poetry run pytest
+              run: poetry run pytest
 
     build:
         needs: test
@@ -46,12 +46,12 @@ jobs:
                 python-version: "3.13"
             
             - name: Install poetry
-              uses: pip install poetry
+              run: pip install poetry
             
             - name: Build the project
-              uses: poetry build
+              run: poetry build
             
             - name: Verify built files
-              uses: |
+              run: |
                 ls dist/
                 echo "Build successful!"
