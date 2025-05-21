@@ -32,6 +32,10 @@ git clone https://github.com/Dugers/wb_parser_lib.git
 ```sh
 poetry add wb_parser
 ```
+or you can directly add the project from github
+```sh
+poetry add "git+https://github.com/Dugers/wb_parser_lib.git"
+```
 ## How to use?
 You need to init WbAsyncParser and setup an url parser strategy and a connection strategy
 ```python
